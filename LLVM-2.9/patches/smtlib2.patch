@@ -1,0 +1,22 @@
+--- original/src/parser/smtlib2.y	2013-12-12 11:13:18.000000000 -0500
++++ stp-r940/src/parser/smtlib2.y	2015-05-14 23:46:33.280426000 -0400
+@@ -64,6 +64,7 @@
+     FatalError("");
+     return 1;
+   }
++  int yyerror(void* AssertsQuery, const char* s) { return yyerror(s); }
+ 
+   ASTNode querysmt2;
+   ASTVec assertionsSMT2;
+@@ -72,9 +73,10 @@
+ #define YYMAXDEPTH 104857600
+ #define YYERROR_VERBOSE 1
+ #define YY_EXIT_FAILURE -1
+-#define YYPARSE_PARAM AssertsQuery
+   %}
+ 
++%parse-param {void* AssertsQuery}
++
+ %union {  
+   unsigned uintval;                  /* for numerals in types. */
+   //ASTNode,ASTVec
